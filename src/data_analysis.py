@@ -19,6 +19,6 @@ print(boston.info())      # Display a summary of basic information about the dat
 # Visualize the relationship between each pair of variables
 sns.pairplot(boston)
 plt.tick_params(labelsize=25)
-plt.savefig('../figures/pairplot.png')
+plt.savefig('../figs/pairplot.png')
 
 
