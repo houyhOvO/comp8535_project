@@ -1,4 +1,4 @@
-# COMP8538 Group Research Project
+# COMP8535 Group Research Project
 
 ## Author 📝
 
@@ -17,7 +17,8 @@ that can predict housing prices.
 
 ## Quickstart 🚀️
 
-Make sure your libraries meet the requirements. Open a terminal and run:
+Make sure your libraries meet the requirements.
+After clone or download, open a terminal and run:
 
 ```
 pip install -r requirements.txt
