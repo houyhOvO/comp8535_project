@@ -1,8 +1,8 @@
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
-import warnings
-warnings.filterwarnings('ignore')
+import numpy as np
+
 
 features = ['CRIM', 'ZN', 'INDUS', 'CHAS', 'NOX', 'RM', 'AGE', 'DIS', 'RAD', 'TAX', 'PTRATIO', 'B', 'LSTAT']
 
@@ -10,15 +10,15 @@ boston = pd.read_csv('../dataset/boston.csv')
 print(boston.describe())  # Display statistics of data
 print(boston.info())      # Display a summary of basic information about the data
 
-# data = boston.values[:, :-1]
-# price = boston.values[:, -1]
-# data_df = pd.DataFrame(data, columns=features)
-# price_df = pd.DataFrame(price, columns=['MEDV'])
 
-
-# Visualize the relationship between each pair of variables
-sns.pairplot(boston)
-plt.tick_params(labelsize=25)
-plt.savefig('../figs/pairplot.png')
-
-
+features.append('MEDV')
+correlation = boston.corr()
+print(correlation)
+fig = plt.figure(figsize=(15, 15))
+ax = fig.add_subplot()
+sns.heatmap(correlation, cmap='YlGnBu', vmax=1, vmin=-1, annot=True, annot_kws={"size": 15})
+plt.xticks(np.arange(len(features)) + 0.5, features)
+plt.yticks(np.arange(len(features)) + 0.5, features, rotation=0)
+ax.set_title('Correlation coefficient matrix heatmap')
+plt.savefig('../figs/heatmap.png')
+plt.show()
