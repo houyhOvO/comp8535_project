@@ -2,9 +2,9 @@
 
 ## Author 📝
 
-* [BlueBlueCookieMonster](!https://github.com/BlueBlueCookieMonster)
-* [GUA07](!https://github.com/GUA07)
-* [houyhOvO](!https://github.com/houyhOvO)
+* [BlueBlueCookieMonster](https://github.com/BlueBlueCookieMonster)
+* [GUA07](https://github.com/GUA07)
+* [houyhOvO](https://github.com/houyhOvO)
 
 ## Overview  👀️
 
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 
 ## Reference 📖
 
-* [Welcome to Streamlit 👋](!https://github.com/streamlit/streamlit)
+* [Welcome to Streamlit 👋](https://github.com/streamlit/streamlit)
 
 
 
