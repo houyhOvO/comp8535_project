@@ -12,11 +12,11 @@ print(boston.info())      # Display a summary of basic information about the dat
 
 
 features.append('MEDV')
-correlation = boston.corr()
-print(correlation)
+correlation = boston.corr()      # Calculate correlation matrix
+# print(correlation)
 fig = plt.figure(figsize=(15, 15))
-ax = fig.add_subplot()
-sns.heatmap(correlation, cmap='YlGnBu', vmax=1, vmin=-1, annot=True, annot_kws={"size": 15})
+ax = fig.add_subplot()           # Add a subplot
+sns.heatmap(correlation, cmap='YlGnBu', vmax=1, vmin=-1, annot=True, annot_kws={"size": 15})  # Generate a heatmap for correlation
 plt.xticks(np.arange(len(features)) + 0.5, features)
 plt.yticks(np.arange(len(features)) + 0.5, features, rotation=0)
 ax.set_title('Correlation coefficient matrix heatmap')
