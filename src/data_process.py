@@ -5,6 +5,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 from sklearn.model_selection import train_test_split
 
+
 def process_data():
     boston = pd.read_csv('../dataset/boston.csv')
 
@@ -20,7 +21,7 @@ def process_data():
     pickle.dump(scaler, open('../models/scaler.pkl', 'wb'))
 
     # PCA
-    pca = PCA(n_components=0.99)     # Keep the components that explain 99% of the variance
+    pca = PCA(n_components=0.90)     # Keep the components that explain 99% of the variance
     X_train_pca = pca.fit_transform(X_train_std)
     X_test_pca = pca.transform(X_test_std)
     pickle.dump(pca, open('../models/pca.pkl', 'wb'))
