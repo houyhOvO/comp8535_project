@@ -13,7 +13,7 @@ correlation = boston.corr()      # Calculate correlation matrix
 
 # Heatmap
 plt.figure(figsize=(15, 15))
-sns.heatmap(correlation.iloc[:, 13:], cmap='YlGnBu', linewidths=0.1, annot=True, annot_kws={"size": 20, "weight":"bold"})  # Generate a heatmap for correlation
+sns.heatmap(correlation, cmap='YlGnBu', linewidths=0.1, annot=True, annot_kws={"size": 20, "weight":"bold"})  # Generate a heatmap for correlation
 plt.title('Correlation coefficient heatmap', fontsize=20)
 plt.savefig('../figs/heatmap.png')
 plt.show()
