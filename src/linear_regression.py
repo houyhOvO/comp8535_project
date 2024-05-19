@@ -15,6 +15,10 @@ y_train = np.copy(y_train)
 linear_regression = LinearRegression()
 linear_regression.fit(X_train, y_train)
 
+# save the model
+with open('../models/linear_regression.pkl', 'wb') as f:
+    pickle.dump(linear_regression, f)
+
 y_pred = linear_regression.predict(X_test)
 
 plt.scatter(y_test,y_pred)
