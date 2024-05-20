@@ -11,8 +11,8 @@
 We choose Topic 5 Housing Price Prediction as our project.
 We use [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis) to reduce the dimensionality of the data and
 selected several main features. Then use [linear regression](https://en.wikipedia.org/wiki/Linear_regression),
-[random forest](https://en.wikipedia.org/wiki/Random_forest) and other algorithms to train the model.
-Finally, we develope a system based on [Streamlit](https://streamlit.io/)
+[random forest](https://en.wikipedia.org/wiki/Random_forest) and other models to train our model.
+Finally, we develop a system based on [Streamlit](https://streamlit.io/)
 that can predict housing prices.
 
 ## Quickstart 🚀️
@@ -31,6 +31,8 @@ streamlit run launch.py
 ```
 
 You are all set!
+
+Or If you just want to try it out, just click this [link](https://housingprediction.streamlit.app/).
 
 ## Reference 📖
 
