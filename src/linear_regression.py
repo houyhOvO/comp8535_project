@@ -22,6 +22,8 @@ with open('../models/linear_regression.pkl', 'wb') as f:
 y_pred = linear_regression.predict(X_test)
 
 plt.scatter(y_test,y_pred)
+x = np.linspace(0, 50, 50)
+plt.plot(x, x)
 plt.title('Actual vs Predicted (Linear Regression)')
 plt.xlabel('Actual value')
 plt.ylabel('Predicted value')
