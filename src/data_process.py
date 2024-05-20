@@ -25,6 +25,11 @@ def process_data():
     X_train_pca = pca.fit_transform(X_train_std)
     X_test_pca = pca.transform(X_test_std)
     pickle.dump(pca, open('../models/pca.pkl', 'wb'))
+    
+    # print the most relevant features
+    print("Explained variance ratio:", pca.explained_variance_ratio_)
+    print("Components:\n", pca.components_)
+
 
     # Save processed data
     with open('../dataset/processed_data.pkl', 'wb') as f:
