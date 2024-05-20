@@ -7,12 +7,13 @@ with open('./models/linear_regression.pkl', 'rb') as f:
     linear_model = pickle.load(f)
 with open('./models/random_forest_regressor.pkl', 'rb') as f:
     forest_model = pickle.load(f)
-with open('./models/dicision_tree.pkl', 'rb') as f:
+with open('./models/decision_tree.pkl', 'rb') as f:
     decision_model = pickle.load(f)
 with open('./models/rbf_svr.pkl', 'rb') as f:
     svm_model = pickle.load(f)
 with open('./models/xgboost.pkl', 'rb') as f:
     xgb_model = pickle.load(f)
+
 with open('./models/scaler.pkl', 'rb') as scaler_file:
     scaler = pickle.load(scaler_file)
 try:
@@ -22,7 +23,8 @@ except FileNotFoundError:
     pca = None
 
 st.sidebar.title('**Select Your Configuration Here** 👇')
-model_choice = st.sidebar.radio("Please select a model to use", ["Linear Regression", "Random Forest", "Decision Tree","Support Vector Machine","XGBoost"])
+model_choice = st.sidebar.radio("Please select a model to use", ["Linear Regression", "Random Forest", "Decision Tree",
+                                                                 "Support Vector Machine", "XGBoost"])
 
 st.title("Welcome to the housing price prediction app!⚡")
 with st.expander("What is this app about?"):
@@ -34,6 +36,7 @@ with st.expander("What is this app about?"):
 
 if model_choice == "Linear Regression":
     # get user's input as features
+    crim = st.number_input('CRIM: per capita crime rate by town')
     zn = st.number_input('ZN: proportion of residential land zoned')
     indus = st.number_input('INDUS: proportion of non-retail business acres per town')
     chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
@@ -52,18 +55,9 @@ if model_choice == "Linear Regression":
     # calculate the result
     if submit:
         features = np.zeros((1, 13))
-        features[0, 1] = zn
-        features[0, 2] = indus
-        features[0, 3] = chas
-        features[0, 4] = nox
-        features[0, 5] = rm
-        features[0, 6] = age
-        features[0, 7] = dis
-        features[0, 8] = rad
-        features[0, 9] = tax
-        features[0, 10] = ptratio
-        features[0, 11] = b
-        features[0, 12] = lstat
+        feature_list = [crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat]
+        for i, feature in enumerate(feature_list):
+            features[0, i] = feature
 
         # Normalized input feature
         features_std = scaler.transform(features)
@@ -78,6 +72,7 @@ if model_choice == "Linear Regression":
 elif model_choice == "Random Forest":
     # st.write("Random Forest model interface will be here.")
     # get user's input as features
+    crim = st.number_input('CRIM: per capita crime rate by town')
     zn = st.number_input('ZN: proportion of residential land zoned')
     indus = st.number_input('INDUS: proportion of non-retail business acres per town')
     chas = st.number_input('CHAS: Charles River dummy variable(0/1)')
@@ -96,18 +91,9 @@ elif model_choice == "Random Forest":
     # calculate the result
     if submit:
         features = np.zeros((1, 13))
-        features[0, 1] = zn
-        features[0, 2] = indus
-        features[0, 3] = chas
-        features[0, 4] = nox
-        features[0, 5] = rm
-        features[0, 6] = age
-        features[0, 7] = dis
-        features[0, 8] = rad
-        features[0, 9] = tax
-        features[0, 10] = ptratio
-        features[0, 11] = b
-        features[0, 12] = lstat
+        feature_list = [crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat]
+        for i, feature in enumerate(feature_list):
+            features[0, i] = feature
 
         # Normalized input feature
         features_std = scaler.transform(features)
@@ -122,6 +108,7 @@ elif model_choice == "Random Forest":
 elif model_choice == "Decision Tree":
     # st.write("Decision Tree model interface will be here.")
     # get user's input as features
+    crim = st.number_input('CRIM: per capita crime rate by town')
     zn = st.number_input('ZN:proportion of residential land zoned')
     indus = st.number_input('INDUS: proportion of non-retail business acres per town')
     chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
@@ -140,18 +127,9 @@ elif model_choice == "Decision Tree":
     # calculate the result
     if submit:
         features = np.zeros((1, 13))
-        features[0, 1] = zn
-        features[0, 2] = indus
-        features[0, 3] = chas
-        features[0, 4] = nox
-        features[0, 5] = rm
-        features[0, 6] = age
-        features[0, 7] = dis
-        features[0, 8] = rad
-        features[0, 9] = tax
-        features[0, 10] = ptratio
-        features[0, 11] = b
-        features[0, 12] = lstat
+        feature_list = [crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat]
+        for i, feature in enumerate(feature_list):
+            features[0, i] = feature
 
         # Normalized input feature
         features_std = scaler.transform(features)
@@ -165,6 +143,7 @@ elif model_choice == "Decision Tree":
 elif model_choice == "Support Vector Machine":
     # st.write("Decision Tree model interface will be here.")
     # get user's input as features
+    crim = st.number_input('CRIM: per capita crime rate by town')
     zn = st.number_input('ZN:proportion of residential land zoned')
     indus = st.number_input('INDUS: proportion of non-retail business acres per town')
     chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
@@ -183,18 +162,9 @@ elif model_choice == "Support Vector Machine":
     # calculate the result
     if submit:
         features = np.zeros((1, 13))
-        features[0, 1] = zn
-        features[0, 2] = indus
-        features[0, 3] = chas
-        features[0, 4] = nox
-        features[0, 5] = rm
-        features[0, 6] = age
-        features[0, 7] = dis
-        features[0, 8] = rad
-        features[0, 9] = tax
-        features[0, 10] = ptratio
-        features[0, 11] = b
-        features[0, 12] = lstat
+        feature_list = [crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat]
+        for i, feature in enumerate(feature_list):
+            features[0, i] = feature
 
         # Normalized input feature
         features_std = scaler.transform(features)
@@ -208,6 +178,7 @@ elif model_choice == "Support Vector Machine":
 elif model_choice == "XGBoost":
     # st.write("Decision Tree model interface will be here.")
     # get user's input as features
+    crim = st.number_input('CRIM: per capita crime rate by town')
     zn = st.number_input('ZN:proportion of residential land zoned')
     indus = st.number_input('INDUS: proportion of non-retail business acres per town')
     chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
@@ -226,18 +197,9 @@ elif model_choice == "XGBoost":
     # calculate the result
     if submit:
         features = np.zeros((1, 13))
-        features[0, 1] = zn
-        features[0, 2] = indus
-        features[0, 3] = chas
-        features[0, 4] = nox
-        features[0, 5] = rm
-        features[0, 6] = age
-        features[0, 7] = dis
-        features[0, 8] = rad
-        features[0, 9] = tax
-        features[0, 10] = ptratio
-        features[0, 11] = b
-        features[0, 12] = lstat
+        feature_list = [crim, zn, indus, chas, nox, rm, age, dis, rad, tax, ptratio, b, lstat]
+        for i, feature in enumerate(feature_list):
+            features[0, i] = feature
 
         # Normalized input feature
         features_std = scaler.transform(features)
@@ -245,6 +207,6 @@ elif model_choice == "XGBoost":
         if pca:
             features_std = pca.transform(features_std)
         # Make the prediction
-        prediction = xgb_model.predict(features_std)
-        st.write(f"The predicted price is: ${prediction[0]:.2f}")
+        # prediction = xgb_model.predict(features_std)
+        # st.write(f"The predicted price is: ${prediction[0]:.2f}")
 
