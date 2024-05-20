@@ -207,6 +207,6 @@ elif model_choice == "XGBoost":
         if pca:
             features_std = pca.transform(features_std)
         # Make the prediction
-        # prediction = xgb_model.predict(features_std)
-        # st.write(f"The predicted price is: ${prediction[0]:.2f}")
+        prediction = xgb_model.predict(features_std)
+        st.write(f"The predicted price is: ${prediction[0]:.2f}")
 
