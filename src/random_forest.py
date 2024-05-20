@@ -1,10 +1,10 @@
-from sklearn.ensemble import RandomForestClassifier
 import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.metrics import mean_squared_error, r2_score
+from update_model_results import update_model_results
 
 # 加载数据
 with open('../dataset/processed_data.pkl', 'rb') as f:
@@ -27,6 +27,8 @@ y_pred = random_forest.predict(X_test)
 
 # 绘制实际值与预测值的散点图
 plt.scatter(y_test, y_pred)
+x = np.linspace(0, 50, 50)
+plt.plot(x, x)
 plt.title('Actual vs Predicted (Random Forest)')
 plt.xlabel('Actual value')
 plt.ylabel('Predicted value')
@@ -36,5 +38,5 @@ plt.show()
 # 计算并打印MSE和R^2
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
-print(f'Mean Squared Error: {mse}')
-print(f'R^2 Score: {r2}')
+
+update_model_results('Random Forest', mse, r2)

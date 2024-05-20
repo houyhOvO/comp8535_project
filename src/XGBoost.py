@@ -4,6 +4,7 @@ import xgboost as xgb
 
 from matplotlib import pyplot as plt
 from sklearn.metrics import mean_squared_error, r2_score
+from update_model_results import update_model_results
 
 with open('../dataset/processed_data.pkl', 'rb') as f:
     X_train, X_test, y_train, y_test = pickle.load(f)
@@ -33,5 +34,5 @@ plt.show()
 
 mse = mean_squared_error(y_test, y_pred)
 r2 = r2_score(y_test, y_pred)
-print(mse)
-print(r2)
+
+update_model_results('XGBoost', mse, r2)
