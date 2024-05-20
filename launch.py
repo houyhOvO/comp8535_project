@@ -4,7 +4,11 @@ import numpy as np
 
 # load the model
 with open('./models/linear_regression.pkl', 'rb') as f:
-    model = pickle.load(f)
+    linear_model = pickle.load(f)
+with open('./models/random_forest_regressor.pkl', 'rb') as f:
+    forest_model = pickle.load(f)
+with open('./models/dicision_tree.pkl', 'rb') as f:
+    decision_model = pickle.load(f)
 with open('./models/scaler.pkl', 'rb') as scaler_file:
     scaler = pickle.load(scaler_file)
 try:
@@ -14,7 +18,7 @@ except FileNotFoundError:
     pca = None
 
 st.sidebar.title('**Select Your Configuration Here** 👇')
-st.sidebar.radio("Please select a model to use", ["Linear Regression", "Random Forest", "Decision Tree"])
+model_choice = st.sidebar.radio("Please select a model to use", ["Linear Regression", "Random Forest", "Decision Tree"])
 
 st.title("Welcome to the housing price prediction app!⚡")
 with st.expander("What is this app about?"):
@@ -22,35 +26,134 @@ with st.expander("What is this app about?"):
     This app is designed to help you predict the price of housing.\n
     Just enter numbers and a few clicks, you'll get the price！
     ''')
-# st.number_input('RM average number of rooms per dwelling')
-# st.number_input('LSTAT lower status of the population(%)')
-# st.number_input('PTRATIO  pupil-teacher ratio by town')
-#
-# submit = st.button(label='Get Price')
 
-# 获取用户输入的特征值
-rm = st.number_input('RM: average number of rooms per dwelling')
-lstat = st.number_input('LSTAT: lower status of the population(%)')
-ptratio = st.number_input('PTRATIO: pupil-teacher ratio by town')
 
-submit = st.button(label='Get Price')
+if model_choice == "Linear Regression":
+    # get user's input as features
+    zn = st.number_input('ZN: proportion of residential land zoned')
+    indus = st.number_input('INDUS: proportion of non-retail business acres per town')
+    chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
+    nox = st.number_input('NOX:nitric oxides concentration')
+    rm = st.number_input('RM: average number of rooms per dwelling')
+    age = st.number_input('AGE: proportion of owner-occupied units built prior to 1940')
+    dis = st.number_input('RIS: weighted distances to five Boston employment centres')
+    rad = st.number_input('RAD: index of accessibility to radial highways')
+    tax = st.number_input('TAX: full-value property-tax rate per $10,000')
+    ptratio = st.number_input('PTRATIO: pupil-teacher ratio by town')
+    b = st.number_input('B: the proportion of blacks by town')
+    lstat = st.number_input('LSTAT: lower status of the population(%)')
 
-# 输出预测结果
-if submit:
-    # 检查所有输入是否有效
-    if rm > 0 and lstat > 0 and ptratio > 0:
-        # 创建一个包含所有特征的数组，用 0 填充未使用的特征
+    submit = st.button(label='Get Price')
+
+    # calculate the result
+    if submit:
         features = np.zeros((1, 13))
+        features[0, 1] = zn
+        features[0, 2] = indus
+        features[0, 3] = chas
+        features[0, 4] = nox
         features[0, 5] = rm
-        features[0, 12] = lstat
+        features[0, 6] = age
+        features[0, 7] = dis
+        features[0, 8] = rad
+        features[0, 9] = tax
         features[0, 10] = ptratio
-        # 标准化输入特征
+        features[0, 11] = b
+        features[0, 12] = lstat
+
+        # Normalized input feature
         features_std = scaler.transform(features)
-        # 如果有PCA，应用PCA变换
+        # Apply PCA
         if pca:
             features_std = pca.transform(features_std)
-        # 进行预测
-        prediction = model.predict(features_std)
+        # Make the prediction
+        prediction = linear_model.predict(features_std)
         st.write(f"The predicted price is: ${prediction[0]:.2f}")
-    else:
-        st.write("Please enter valid values for all features.")
+
+
+elif model_choice == "Random Forest":
+    # st.write("Random Forest model interface will be here.")
+    # get user's input as features
+    zn = st.number_input('ZN: proportion of residential land zoned')
+    indus = st.number_input('INDUS: proportion of non-retail business acres per town')
+    chas = st.number_input('CHAS: Charles River dummy variable(0/1)')
+    nox = st.number_input('NOX: nitric oxides concentration')
+    rm = st.number_input('RM: average number of rooms per dwelling')
+    age = st.number_input('AGE: proportion of owner-occupied units built prior to 1940')
+    dis = st.number_input('RIS: weighted distances to five Boston employment centres')
+    rad = st.number_input('RAD: index of accessibility to radial highways')
+    tax = st.number_input('TAX: full-value property-tax rate per $10,000')
+    ptratio = st.number_input('PTRATIO: pupil-teacher ratio by town')
+    b = st.number_input('B: the proportion of blacks by town')
+    lstat = st.number_input('LSTAT: lower status of the population(%)')
+
+    submit = st.button(label='Get Price')
+
+    # calculate the result
+    if submit:
+        features = np.zeros((1, 13))
+        features[0, 1] = zn
+        features[0, 2] = indus
+        features[0, 3] = chas
+        features[0, 4] = nox
+        features[0, 5] = rm
+        features[0, 6] = age
+        features[0, 7] = dis
+        features[0, 8] = rad
+        features[0, 9] = tax
+        features[0, 10] = ptratio
+        features[0, 11] = b
+        features[0, 12] = lstat
+
+        # Normalized input feature
+        features_std = scaler.transform(features)
+        # Apply PCA
+        if pca:
+            features_std = pca.transform(features_std)
+        # Make the prediction
+        prediction = forest_model.predict(features_std)
+        st.write(f"The predicted price is: ${prediction[0]:.2f}")
+
+
+elif model_choice == "Decision Tree":
+    # st.write("Decision Tree model interface will be here.")
+    # get user's input as features
+    zn = st.number_input('ZN:proportion of residential land zoned')
+    indus = st.number_input('INDUS: proportion of non-retail business acres per town')
+    chas = st.number_input('CHAS:Charles River dummy variable(0/1)')
+    nox = st.number_input('NOX:nitric oxides concentration')
+    rm = st.number_input('RM: average number of rooms per dwelling')
+    age = st.number_input('AGE: proportion of owner-occupied units built prior to 1940')
+    dis = st.number_input('RIS: weighted distances to five Boston employment centres')
+    rad = st.number_input('RAD: index of accessibility to radial highways')
+    tax = st.number_input('TAX: full-value property-tax rate per $10,000')
+    ptratio = st.number_input('PTRATIO: pupil-teacher ratio by town')
+    b = st.number_input('B: the proportion of blacks by town')
+    lstat = st.number_input('LSTAT: lower status of the population(%)')
+
+    submit = st.button(label='Get Price')
+
+    # calculate the result
+    if submit:
+        features = np.zeros((1, 13))
+        features[0, 1] = zn
+        features[0, 2] = indus
+        features[0, 3] = chas
+        features[0, 4] = nox
+        features[0, 5] = rm
+        features[0, 6] = age
+        features[0, 7] = dis
+        features[0, 8] = rad
+        features[0, 9] = tax
+        features[0, 10] = ptratio
+        features[0, 11] = b
+        features[0, 12] = lstat
+
+        # Normalized input feature
+        features_std = scaler.transform(features)
+        # Apply PCA
+        if pca:
+            features_std = pca.transform(features_std)
+        # Make the prediction
+        prediction = decision_model.predict(features_std)
+        st.write(f"The predicted price is: ${prediction[0]:.2f}")
